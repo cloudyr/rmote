@@ -6,7 +6,7 @@ Description: Serve graphics (lattice/ggplot, htmlwidgets, help) over http from a
 License: MIT + file LICENSE
 LazyData: true
 Depends:
-  R (>= 3.2),
+  R (>= 3.1),
   servr,
   lattice,
   ggplot2,
