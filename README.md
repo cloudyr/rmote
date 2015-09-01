@@ -44,7 +44,8 @@ Currently there is support for lattice, ggplot2, htmlwidgets, and help output.
 4. Run the following in R on the remote:
 
     ```r
-    rmote::rmote_server_init()
+    library(rmote)
+    rmote_server_init()
     ```
 
     To view some of the options for this, see `?rmote_server_init`.  One option is the port, which needs to match the one your forwarded in step 2 (4321 is the default.)
