@@ -56,8 +56,11 @@ Currently there is support for lattice, ggplot2, htmlwidgets, and help output.
 
     ```r
     ?plot
+
     qplot(mpg, wt, data=mtcars, colour=cyl)
+
     dotplot(variety ~ yield | year * site, data=barley)
+
     library(rbokeh)
     figure() %>% ly_hexbin(rnorm(10000), rnorm(10000))
     ```
