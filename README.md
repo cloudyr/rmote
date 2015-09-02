@@ -54,7 +54,7 @@ Currently there is support for lattice, ggplot2, htmlwidgets, and help output.
 
 5. On your local machine, open up your web browser to `localhost:4321`
 
-    Now as you create compatible plots on your remote machine, your browser on your local machine will automatically update to show the results.  For example, try runningn each of the following in succession:
+    Now as you create compatible plots on your remote machine, your browser on your local machine will automatically update to show the results.  For example, try running each of the following in succession:
 
     ```r
     ?plot
