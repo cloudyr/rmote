@@ -27,6 +27,12 @@ rmote_server_init <- function(server_dir = file.path(tempdir(), "rmote_server"),
       daemon = TRUE, browser = FALSE), silent = TRUE)
 }
 
+#' Stop an rmote server
+#' @export
+rmote_server_stop <- function() {
+  servr::daemon_stop()
+}
+
 get_server_dir <- function() {
   server_dir <- getOption("rmote_server_dir")
   if(is.null(server_dir))
