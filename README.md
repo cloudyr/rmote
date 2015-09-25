@@ -1,5 +1,7 @@
 ## rmote
 
+![gif](https://cloud.githubusercontent.com/assets/1275592/9618810/99cf5b2c-50be-11e5-885d-a4de16919271.gif)
+
 ### Running R on a remote server
 
 R users often find themselves needing to log in to a remote machine to do analysis.  Sometimes this is due to data restrictions, computing power on the remote machine, etc.  Users can ssh in and run R in a terminal, but it is not possible to look at graphics, etc.
@@ -52,7 +54,7 @@ Currently there is support for lattice, ggplot2, htmlwidgets, and help output.
 
 5. On your local machine, open up your web browser to `localhost:4321`
 
-    Now as you create compatible plots on your remote machine, your browser on your local machine will automatically update to show the results.  For example, try runningn each of the following in succession:
+    Now as you create compatible plots on your remote machine, your browser on your local machine will automatically update to show the results.  For example, try running each of the following in succession:
 
     ```r
     ?plot
