@@ -21,7 +21,7 @@ rmote_server_init <- function(server_dir = file.path(tempdir(), "rmote_server"),
   options(rmote_help = help)
   options(rmote_raster = raster)
   options(rmote_htmlwidgets = htmlwidgets)
-  options(rmote_user_live = use_live)
+  options(rmote_use_live = use_live)
 
   try(servr::httd(server_dir, port = port,
       daemon = TRUE, browser = FALSE), silent = TRUE)
