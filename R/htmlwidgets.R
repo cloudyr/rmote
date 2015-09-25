@@ -12,7 +12,8 @@ print.htmlwidget <- function(x, ...) {
 
   if(widget_opt) {
     res <- try({
-      x$dependencies <- c(x$dependencies, list(htmltools::htmlDependency(name = "live", src = file.path(system.file(package = "rmote"), "live"), version = "4", script = "live.js")))
+      if(getOption("rmote_use_live", default = FALSE))
+        x$dependencies <- c(x$dependencies, list(htmltools::htmlDependency(name = "live", src = file.path(system.file(package = "rmote"), "live"), version = "4", script = "live.js")))
       html <- htmltools::as.tags(x, standalone = TRUE)
       htmltools::save_html(html, file = file.path(get_server_dir(), "index.html"))
       # need to make another change for some reason for live.js to always update

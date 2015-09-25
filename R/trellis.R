@@ -40,7 +40,8 @@ print_raster <- function(x) {
     html <- tags$html(
       tags$head(tags$title(paste("raster plot:", plot_digest))),
       tags$body(img(src = file.path("plots", file))))
-    html <- attachDependencies(html, htmltools::htmlDependency(name = "live", src = file.path(system.file(package = "rmote"), "live"), version = "4", script = "live.js"))
+    if(getOption("rmote_use_live", default = FALSE))
+      html <- attachDependencies(html, htmltools::htmlDependency(name = "live", src = file.path(system.file(package = "rmote"), "live"), version = "4", script = "live.js"))
 
     htmltools::save_html(html, file = file.path(get_server_dir(), "index.html"))
     # need to make another change for some reason for live.js to always update

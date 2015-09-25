@@ -4,7 +4,7 @@
 \alias{print.ggplot}
 \title{Print ggplot2 plot to servr}
 \usage{
-\method{print}{ggplot}(x, ...)
+print.ggplot(x, ...)
 }
 \arguments{
 \item{x}{ggplot object}

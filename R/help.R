@@ -29,10 +29,10 @@ print.help_files_with_topic <- function(x, ...) {
         file.copy(file.path(system.file(package = "rmote"), "R.css"), server_dir)
 
       idx <- which(grepl("</head>", res))
-      if(length(idx) > 0) {
+      if(length(idx) > 0 && getOption("rmote_use_live", default = FALSE)) {
         res[idx[1]] <- gsub("(.*)</head>(.*)", "\\1\n<script type='text/javascript' src='live.js'></script>\n</head>\\2", res[idx[1]])
-        writeLines(res, file.path(server_dir, "index.html"))
       }
+      writeLines(res, file.path(server_dir, "index.html"))
       return()
     }
   }

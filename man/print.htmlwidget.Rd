@@ -4,7 +4,7 @@
 \alias{print.htmlwidget}
 \title{Print an htmlwidget to servr}
 \usage{
-\method{print}{htmlwidget}(x, ...)
+print.htmlwidget(x, ...)
 }
 \arguments{
 \item{x}{htmlwidget object}

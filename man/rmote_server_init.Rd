@@ -5,12 +5,15 @@
 \title{Initialize a remote servr}
 \usage{
 rmote_server_init(server_dir = file.path(tempdir(), "rmote_server"),
-  port = 4321, help = TRUE, raster = TRUE, htmlwidgets = TRUE)
+  port = 4321, use_live = FALSE, help = TRUE, raster = TRUE,
+  htmlwidgets = TRUE)
 }
 \arguments{
 \item{server_dir}{directory to launch servr from}
 
 \item{port}{port to run servr on}
+
+\item{use_live}{should live.js be used to live reload the page when something new is plotted?}
 
 \item{help}{(logical) send results of `?` to servr}
 
@@ -20,5 +23,8 @@ rmote_server_init(server_dir = file.path(tempdir(), "rmote_server"),
 }
 \description{
 Initialize a remote servr
+}
+\note{
+live.js has some issues with some browsers so by default it is not enabled, meaning that you will have to manually refresh your page.
 }
 
