@@ -22,11 +22,11 @@ Often we do not have the choice of installing RStudio Server or a desktop enviro
 
 ### A solution
 
-The rmote package is an attempt to make working in R over ssh on a server a bit more pleasant in terms of viewing output.  It uses [servr](https://github.com/yihui/servr) on the remote machine to serve R graphics as they are created.  These can be viewed on the local machine in a web browser. Using [live.js](http://livejs.com) in the web browser on the local machine, the user's browser will automatically refresh each time a new output is available.
+The rmote package is an attempt to make working in R over ssh on a server a bit more pleasant in terms of viewing output.  It uses [servr](https://github.com/yihui/servr) on the remote machine to serve R graphics as they are created.  These can be viewed on the local machine in a web browser. The user's local browser will automatically refresh each time a new output is available.
 
 Currently there is support for lattice, ggplot2, htmlwidgets, and help output.
 
-### Setup
+### Usage
 
 1. Choose a port to run your remote server on (default is 4321)
 2. ssh into the remote machine, mapping the port on the remote back to your local machine:
@@ -37,24 +37,24 @@ Currently there is support for lattice, ggplot2, htmlwidgets, and help output.
 
     I also add port 8100 so I can forward shiny apps back to my local machine on a dedicated port.
 
-3. On the remote machine launch R and install rmote (one time only)
+3. On the remote machine launch R and install the latest version of servr and rmote (one time only)
 
     ```
+    install.packages('servr', repos = 'http://yihui.name/xran')
     devtools::install_github("hafen/rmote")`
     ```
 
 4. Run the following in R on the remote:
 
     ```r
-    library(rmote)
-    rmote_server_init()
+    rmote::start_rmote()
     ```
 
-    To view some of the options for this, see `?rmote_server_init`.  One option is the port, which needs to match the one your forwarded in step 2 (4321 is the default.)
+    To view some of the options for this, see `?start_rmote`.  One option is the port, which needs to match the one your forwarded in step 2 (4321 is the default.)
 
 5. On your local machine, open up your web browser to `localhost:4321`
 
-    Now as you create compatible plots on your remote machine, your browser on your local machine will automatically update to show the results.  For example, try running each of the following in succession:
+    Now as you create compatible plots on your remote machine, your browser on your local machine will automatically update to show the results.  For example, try running each of the following in succession on the server:
 
     ```r
     ?plot
