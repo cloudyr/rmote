@@ -77,8 +77,3 @@ If you must work on a remote terminal, here are some additional utilities that h
 - [Sublime](https://www.sublimetext.com) + [SFTP](http://wbond.net/sublime_packages/sftp)
 - [Vim](http://www.vim.org) + [Vim-R-plugin](https://github.com/vim-scripts/Vim-R-plugin)
 
-### Disclaimer
-
-*This is a preliminary package and is extremely experimental, just meant to be a quick utility for some work I'm doing.  If there is any interest, ideas and PRs are welcome.  Use at your own risk.*
-
-
