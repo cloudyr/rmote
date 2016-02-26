@@ -1,6 +1,6 @@
 Package: rmote
-Title: Serve graphics over http a from remote server
-Version: 0.2.0
+Title: Serve Graphics over HTTP a from Remote Server
+Version: 0.2.1
 Authors@R: person("Ryan", "Hafen", email = "rhafen@gmail.com", role = c("aut", "cre"))
 Description: Serve graphics (lattice/ggplot, htmlwidgets, help) over http from
     an interactive R session running through ssh on a remote server.
@@ -12,7 +12,7 @@ Imports:
     tools,
     htmltools,
     digest,
-    servr (>= 0.2.5),
+    servr (>= 0.2.10),
     lattice,
     ggplot2,
     htmlwidgets

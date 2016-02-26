@@ -40,9 +40,18 @@ Currently there is support for lattice, ggplot2, htmlwidgets, and help output.
 3. On the remote machine launch R and install the latest version of servr and rmote (one time only)
 
     ```
-    install.packages('servr', repos = 'http://yihui.name/xran')
+    install.packages("rmote", repos = c(CRAN = "http://cran.rstudio.com",
+      tessera = "http://packages.tessera.io"))
+    ```
+
+    or alternatively
+
+    ```
+    devtools::install_github("yihui/servr")`
     devtools::install_github("hafen/rmote")`
     ```
+
+    Note that this package will probably never be on CRAN since it overwrites some standard R S3 methods.
 
 4. Run the following in R on the remote:
 
