@@ -5,7 +5,7 @@
 \title{Initialize a remote servr}
 \usage{
 start_rmote(server_dir = file.path(tempdir(), "rmote_server"), port = 4321,
-  daemon = TRUE, help = TRUE, traditional = TRUE, htmlwidgets = TRUE)
+  daemon = TRUE, help = TRUE, graphics = TRUE, htmlwidgets = TRUE)
 }
 \arguments{
 \item{server_dir}{directory to launch servr from}
@@ -16,7 +16,7 @@ start_rmote(server_dir = file.path(tempdir(), "rmote_server"), port = 4321,
 
 \item{help}{(logical) send results of `?` to servr}
 
-\item{traditional}{(logical) send traditional lattice / ggplot2 plots to servr}
+\item{graphics}{(logical) send traditional lattice / ggplot2 plots to servr}
 
 \item{htmlwidgets}{(logical) send htmlwidgets to servr}
 }

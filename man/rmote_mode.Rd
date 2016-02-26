@@ -5,7 +5,7 @@
 \title{Set the rmote mode to be on}
 \usage{
 rmote_mode(on = TRUE, server_dir = file.path(tempdir(), "rmote_server"),
-  help = TRUE, traditional = TRUE, htmlwidgets = TRUE)
+  help = TRUE, graphics = TRUE, htmlwidgets = TRUE)
 }
 \arguments{
 \item{on}{should rmote act as if the rmote server is on?}
@@ -14,7 +14,7 @@ rmote_mode(on = TRUE, server_dir = file.path(tempdir(), "rmote_server"),
 
 \item{help}{(logical) send results of `?` to servr}
 
-\item{traditional}{(logical) send traditional lattice / ggplot2 plots to servr}
+\item{graphics}{(logical) send traditional lattice / ggplot2 plots to servr}
 
 \item{htmlwidgets}{(logical) send htmlwidgets to servr}
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/trellis.R
 \name{rmote_device}
 \alias{rmote_device}
-\title{Set device parameters for traditional plot output}
+\title{Set device parameters for traditional grahpics plot output}
 \usage{
 rmote_device(type = c("png", "pdf"), filename = NULL, retina = TRUE, ...)
 }
@@ -16,6 +16,6 @@ rmote_device(type = c("png", "pdf"), filename = NULL, retina = TRUE, ...)
 \item{\ldots}{parameters passed on to either \code{\link[grDevices]{png}} or \code{\link[grDevices]{pdf}} (such as width, height, etc.)}
 }
 \description{
-Set device parameters for traditional plot output
+Set device parameters for traditional grahpics plot output
 }
 
