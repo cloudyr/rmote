@@ -39,14 +39,14 @@ Currently there is support for lattice, ggplot2, htmlwidgets, and help output.
 
 3. On the remote machine launch R and install the latest version of servr and rmote (one time only)
 
-    ```
+    ```r
     install.packages("rmote", repos = c(CRAN = "http://cran.rstudio.com",
       tessera = "http://packages.tessera.io"))
     ```
 
     or alternatively
 
-    ```
+    ```r
     devtools::install_github("yihui/servr")`
     devtools::install_github("hafen/rmote")`
     ```
