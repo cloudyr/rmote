@@ -47,8 +47,8 @@ Currently there is support for lattice, ggplot2, htmlwidgets, and help output.
     or alternatively
 
     ```r
-    devtools::install_github("yihui/servr")`
-    devtools::install_github("hafen/rmote")`
+    devtools::install_github("yihui/servr")
+    devtools::install_github("hafen/rmote")
     ```
 
     Note that this package will probably never be on CRAN since it overwrites some standard R S3 methods.
