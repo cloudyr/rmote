@@ -2,7 +2,7 @@
 #'
 #' @param x trellis object
 #' @param \ldots  additional parameters
-#' @export
+#' @S3method print trellis
 #' @import htmltools
 #' @importFrom digest digest
 print.trellis <- function(x, ...) {
@@ -13,7 +13,7 @@ print.trellis <- function(x, ...) {
 #'
 #' @param x ggplot object
 #' @param \ldots  additional parameters
-#' @export
+#' @S3method print ggplot
 print.ggplot <- function(x, ...) {
   print_graphics(x)
 }
@@ -22,7 +22,7 @@ print_graphics <- function(x) {
 
   graphics_opt <- getOption("rmote_graphics", FALSE)
 
-  if(rmote_on() && graphics_opt) {
+  if(is_rmote_on() && graphics_opt) {
     message("serving graphics through rmote")
 
     output_dir <- file.path(get_server_dir(), "plots")

@@ -1,6 +1,7 @@
 Version 0.3
 ----------------------------------------------------------------------
 
+- Add `rmote_on()` and `rmote_off()`
 - Add main index page with history
 
 Version 0.2

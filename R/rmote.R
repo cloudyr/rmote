@@ -40,32 +40,37 @@ stop_rmote <- function() {
 
 #' Set the rmote mode to be on
 #'
-#' This is useful if there is another R session on the server with an rmote server running that the current session would like to make use of.
-#'
-#' @param on should rmote act as if the rmote server is on?
 #' @param server_dir directory where rmote server is running
 #' @param help (logical) send results of `?` to servr
 #' @param graphics (logical) send traditional lattice / ggplot2 plots to servr
 #' @param htmlwidgets (logical) send htmlwidgets to servr
-#' @note This is useful when rmote is serving from a
-rmote_mode <- function(on = TRUE,
-  server_dir = file.path(tempdir(), "rmote_server"),
+#' @note This is useful when running multiple R sessions on a server, where all will serve the same rmote process.  It is not necessary to call this in the same session on which \code{\link{start_rmote}} has been called, but on any other R sessions.
+#' @export
+rmote_on <- function(server_dir,
   help = TRUE, graphics = TRUE, htmlwidgets = TRUE
 ) {
 
-  options(rmote_on = on)
+  if(!file.exists(server_dir))
+    stop("The location of server_dir does not exist - no rmote server running here...")
 
-  if(on) {
-    options(rmote_server_dir = server_dir)
-    options(rmote_help = help)
-    options(rmote_graphics = graphics)
-    options(rmote_htmlwidgets = htmlwidgets)
-  }
+  options(rmote_on = TRUE)
+
+  options(rmote_server_dir = server_dir)
+  options(rmote_help = help)
+  options(rmote_graphics = graphics)
+  options(rmote_htmlwidgets = htmlwidgets)
 
   invisible(NULL)
 }
 
-rmote_on <- function() {
+#' Set the rmote mode to be off
+#'
+#' @export
+rmote_off <- function() {
+  options(rmote_on = FALSE)
+}
+
+is_rmote_on <- function() {
   getOption("rmote_on", FALSE) || length(servr::daemon_list()) > 0
 }
 

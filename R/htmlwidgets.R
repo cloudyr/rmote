@@ -3,12 +3,12 @@
 #'
 #' @param x htmlwidget object
 #' @param \ldots  additional parameters
-#' @export
+#' @S3method print htmlwidget
 print.htmlwidget <- function(x, ...) {
 
   widget_opt <- getOption("rmote_htmlwidgets", FALSE)
 
-  if(rmote_on() && widget_opt) {
+  if(is_rmote_on() && widget_opt) {
     message("serving htmlwidgets through rmote")
 
     res <- try({

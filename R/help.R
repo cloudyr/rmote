@@ -3,7 +3,7 @@
 #'
 #' @param x help object
 #' @param \ldots  additional parameters
-#' @export
+#' @S3method print help_files_with_topic
 #' @importFrom tools Rd2HTML
 print.help_files_with_topic <- function(x, ...) {
 
@@ -11,7 +11,7 @@ print.help_files_with_topic <- function(x, ...) {
 
   help_opt <- getOption("rmote_help", FALSE)
 
-  if(rmote_on() && help_opt && length(file) == 1 && grepl("/help/", file)) {
+  if(is_rmote_on() && help_opt && length(file) == 1 && grepl("/help/", file)) {
     message("serving help through rmote")
 
     res <- try({
