@@ -58,6 +58,8 @@ print_graphics <- function(x) {
       opts$type <- NULL
       opts$retina <- NULL
       opts$filename <- ofile
+      if(capabilities("cairo"))
+        opts$type <- "cairo-png"
       do.call(png, opts)
     } else if(opts$type == "pdf") {
       html <- tags$html(

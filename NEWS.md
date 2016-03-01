@@ -1,6 +1,7 @@
 Version 0.2
 ----------------------------------------------------------------------
 
+- Add `capabilities()` checking for png
 - When the rmote server isn't running, restore default behavior of print methods
 - Add `rmote_device()` function to allow control over plot dimensions, etc.
 - Add `daemon = FALSE` option for potentially running a single dedicated rmote server for multiple R sessions on a remote server
