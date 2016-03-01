@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>rmote viewer</title>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+
+  <style type="text/css">
+    body {
+      margin: 0px;
+    }
+    #header {
+      position: fixed;
+      top: 0px;
+      left: 0px;
+      height: 22px;
+      width: 100%;
+      margin-bottom: 4px;
+      background: #7EB0E3;
+      text-align: center;
+    }
+    #content {
+      position: fixed;
+      top: 26px;
+      left: 0px;
+      bottom: 0px;
+      width: 100%;
+    }
+    #content iframe {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 100%;
+      width: 100%;
+    }
+    .index {
+      display: inline-block;
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 13px;
+      line-height: 12px;
+      padding: 5px 0px;
+    }
+    button {
+      display: inline-block;
+      margin: 0;
+      padding: 5px 0px;
+      width: 60px;
+      font-size: 13px;
+      font-family: 'Open Sans', sans-serif;
+      line-height: 12px;
+      vertical-align: bottom;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
+      -webkit-border-radius: 0;
+      -moz-border-radius: 0;
+      border-radius: 0;
+      color: #fff;
+      background-color: #6496c8;
+      border: none;
+    }
+    button:focus {
+      outline: none
+    }
+    button:hover {
+      background-color: #4B7DAF;
+      cursor: pointer;
+    }
+    button:first-child {
+      float: left;
+    }
+    button:last-child {
+      float: right;
+    }
+  </style>
+
+  <script type="text/javascript">
+    var max_page = ___max_page___;
+    var cur_page = max_page;
+
+    function pad(n, width, z) {
+      z = z || '0';
+      n = n + '';
+      return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+    }
+
+    function changePage(which) {
+      switch (which) {
+        case 'first':
+          cur_page = 1;
+          break;
+        case 'prev':
+          if(cur_page > 1)
+            cur_page = cur_page - 1;
+          break;
+        case 'next':
+          if(cur_page < max_page)
+            cur_page = cur_page + 1;
+          break;
+        case 'last':
+          cur_page = max_page;
+          break;
+      }
+
+      var url = "output" + pad(cur_page, 3) + ".html";
+      document.getElementById('iframe').src = url;
+      document.getElementById("cur").textContent = cur_page;
+    }
+
+    window.onload = function() {
+      var url = "output" + pad(cur_page, 3) + ".html";
+      document.getElementById("iframe").src = url;
+      document.getElementById("cur").textContent = cur_page;
+      document.getElementById("max").textContent = max_page;
+    };
+
+    document.onkeydown = function(e) {
+      e = e || window.event;
+      switch(e.which || e.keyCode) {
+        case 37: // left
+          changePage('prev');
+          break;
+        case 39: // right
+          changePage('next');
+          break;
+        default: return; // exit this handler for other keys
+      }
+      e.preventDefault(); // prevent the default action (scroll / move caret)
+    };
+  </script>
+</head>
+<body>
+  <div id="header">
+    <button onClick="changePage('first');">First</button>
+    <button onClick="changePage('prev');">Prev</button>
+    <button onClick="changePage('next');">Next</button>
+    <div class="index">
+      (<span id="cur"></span> of <span id="max"></span>)
+    </div>
+    <button onClick="changePage('last');">Last</button>
+  </div>
+
+  <div id="content">
+    <iframe id="iframe"
+      width="100%"
+      height="100%"
+      frameBorder="0"
+      webkitallowfullscreen=""
+      mozallowfullscreen=""
+      allowfullscreen=""
+      sandbox="allow-forms allow-scripts allow-popups allow-same-origin allow-pointer-lock">
+    </iframe>
+  </div>
+</body>
+</html>
+

@@ -75,7 +75,9 @@ print_graphics <- function(x) {
       getFromNamespace("print.ggplot", "ggplot2")(x)
     dev.off()
 
-    htmltools::save_html(html, file = file.path(get_server_dir(), "index.html"))
+    ii <- get_output_index()
+    htmltools::save_html(html, file = file.path(get_server_dir(), get_output_file(ii)))
+    write_index(ii)
 
     return()
   } else {

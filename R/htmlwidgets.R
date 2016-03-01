@@ -13,7 +13,9 @@ print.htmlwidget <- function(x, ...) {
 
     res <- try({
       html <- htmltools::as.tags(x, standalone = TRUE)
-      htmltools::save_html(html, file = file.path(get_server_dir(), "index.html"))
+      ii <- get_output_index()
+      htmltools::save_html(html, file = file.path(get_server_dir(), get_output_file(ii)))
+      write_index(ii)
     })
 
     if(!inherits(res, "try-error"))
