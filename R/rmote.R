@@ -28,7 +28,7 @@ start_rmote <- function(server_dir = file.path(tempdir(), "rmote_server"),
   options(rmote_htmlwidgets = htmlwidgets)
   set_index_template()
 
-  try(servr::httw(server_dir, port = port,
+  try(servr::httw(server_dir, pattern = "index.html", port = port,
       daemon = daemon, browser = FALSE), silent = TRUE)
 }
 
