@@ -1,6 +1,7 @@
 Version 0.3
 ----------------------------------------------------------------------
 
+- Add base R graphics support (0.3.1)
 - Add `rmote_on()` and `rmote_off()`
 - Add main index page with history
 

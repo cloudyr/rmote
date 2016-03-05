@@ -27,6 +27,7 @@ start_rmote <- function(server_dir = file.path(tempdir(), "rmote_server"),
   options(rmote_graphics = graphics)
   options(rmote_htmlwidgets = htmlwidgets)
   set_index_template()
+  set_base_plot_hook()
 
   try(servr::httw(server_dir, pattern = "index.html", port = port,
       daemon = daemon, browser = FALSE), silent = TRUE)
@@ -35,6 +36,9 @@ start_rmote <- function(server_dir = file.path(tempdir(), "rmote_server"),
 #' Stop an rmote server
 #' @export
 stop_rmote <- function() {
+  plot_done()
+  unset_base_plot_hook()
+  options(rmote_on = FALSE)
   servr::daemon_stop()
 }
 
@@ -60,6 +64,8 @@ rmote_on <- function(server_dir,
   options(rmote_graphics = graphics)
   options(rmote_htmlwidgets = htmlwidgets)
 
+  set_base_plot_hook()
+
   invisible(NULL)
 }
 
@@ -67,6 +73,8 @@ rmote_on <- function(server_dir,
 #'
 #' @export
 rmote_off <- function() {
+  plot_done()
+  unset_base_plot_hook()
   options(rmote_on = FALSE)
 }
 

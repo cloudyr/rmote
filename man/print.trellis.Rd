@@ -4,7 +4,7 @@
 \alias{print.trellis}
 \title{Print trellis plot to servr}
 \usage{
-print.trellis(x, ...)
+\method{print}{trellis}(x, ...)
 }
 \arguments{
 \item{x}{trellis object}

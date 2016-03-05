@@ -4,7 +4,7 @@
 \alias{print.help_files_with_topic}
 \title{Print help page to servr}
 \usage{
-print.help_files_with_topic(x, ...)
+\method{print}{help_files_with_topic}(x, ...)
 }
 \arguments{
 \item{x}{help object}

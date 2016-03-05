@@ -107,13 +107,13 @@
           break;
       }
 
-      var url = "output" + pad(cur_page, 3) + ".html";
+      var url = "output" + pad(cur_page, 4) + ".html";
       document.getElementById('iframe').src = url;
       document.getElementById("cur").textContent = cur_page;
     }
 
     window.onload = function() {
-      var url = "output" + pad(cur_page, 3) + ".html";
+      var url = "output" + pad(cur_page, 4) + ".html";
       document.getElementById("iframe").src = url;
       document.getElementById("cur").textContent = cur_page;
       document.getElementById("max").textContent = max_page;

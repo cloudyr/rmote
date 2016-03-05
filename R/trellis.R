@@ -69,22 +69,25 @@ print_graphics <- function(x) {
       opts$file <- ofile
       do.call(pdf, opts)
     }
-    if(inherits(x, "trellis"))
-      getFromNamespace("print.trellis", "lattice")(x)
-    if(inherits(x, "ggplot"))
-      getFromNamespace("print.ggplot", "ggplot2")(x)
-    dev.off()
 
-    ii <- get_output_index()
-    htmltools::save_html(html, file = file.path(get_server_dir(), get_output_file(ii)))
-    write_index(ii)
+    if(inherits(x, c("trellis", "ggplot"))) {
+      if(inherits(x, "trellis"))
+        getFromNamespace("print.trellis", "lattice")(x)
+      if(inherits(x, "ggplot"))
+        getFromNamespace("print.ggplot", "ggplot2")(x)
+      dev.off()
+
+      write_html(html)
+    } else if(inherits(x, "base_graphics")) {
+      options(rmote_baseplot = html)
+    }
 
     return()
   } else {
     if(inherits(x, "trellis"))
-      getFromNamespace("print.trellis", "lattice")(x)
+      return(getFromNamespace("print.trellis", "lattice")(x))
     if(inherits(x, "ggplot"))
-      getFromNamespace("print.ggplot", "ggplot2")(x)
+      return(getFromNamespace("print.ggplot", "ggplot2")(x))
   }
 }
 
