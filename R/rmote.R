@@ -10,13 +10,15 @@ NULL
 #' @param daemon logical - should the server be started as a daemon?
 #' @param help (logical) send results of `?` to servr
 #' @param graphics (logical) send traditional lattice / ggplot2 plots to servr
+#' @param basegraphics (logical) send base graphics to servr
 #' @param htmlwidgets (logical) send htmlwidgets to servr
 #'
 #' @export
 #' @importFrom servr httd
 start_rmote <- function(server_dir = file.path(tempdir(), "rmote_server"),
-  port = 4321, daemon = TRUE,
-  help = TRUE, graphics = TRUE, htmlwidgets = TRUE) {
+  port = 4321,
+  daemon = TRUE, help = TRUE, graphics = TRUE,
+  basegraphics = TRUE, htmlwidgets = TRUE) {
 
   if(!file.exists(server_dir))
     dir.create(server_dir, recursive = TRUE, showWarnings = FALSE)
@@ -26,8 +28,12 @@ start_rmote <- function(server_dir = file.path(tempdir(), "rmote_server"),
   options(rmote_help = help)
   options(rmote_graphics = graphics)
   options(rmote_htmlwidgets = htmlwidgets)
+  options(rmote_basegraphics = basegraphics)
+
   set_index_template()
-  set_base_plot_hook()
+
+  if(basegraphics)
+    set_base_plot_hook()
 
   try(servr::httw(server_dir, pattern = "index.html", port = port,
       daemon = daemon, browser = FALSE), silent = TRUE)
@@ -37,7 +43,8 @@ start_rmote <- function(server_dir = file.path(tempdir(), "rmote_server"),
 #' @export
 stop_rmote <- function() {
   plot_done()
-  unset_base_plot_hook()
+  if(getOption("rmote_basegraphics", FALSE))
+    unset_base_plot_hook()
   options(rmote_on = FALSE)
   servr::daemon_stop()
 }
@@ -47,11 +54,13 @@ stop_rmote <- function() {
 #' @param server_dir directory where rmote server is running
 #' @param help (logical) send results of `?` to servr
 #' @param graphics (logical) send traditional lattice / ggplot2 plots to servr
+#' @param basegraphics (logical) send base graphics to servr
 #' @param htmlwidgets (logical) send htmlwidgets to servr
 #' @note This is useful when running multiple R sessions on a server, where all will serve the same rmote process.  It is not necessary to call this in the same session on which \code{\link{start_rmote}} has been called, but on any other R sessions.
 #' @export
 rmote_on <- function(server_dir,
-  help = TRUE, graphics = TRUE, htmlwidgets = TRUE
+  help = TRUE, graphics = TRUE,
+  basegraphics = TRUE, htmlwidgets = TRUE
 ) {
 
   if(!file.exists(server_dir))
@@ -63,8 +72,10 @@ rmote_on <- function(server_dir,
   options(rmote_help = help)
   options(rmote_graphics = graphics)
   options(rmote_htmlwidgets = htmlwidgets)
+  options(rmote_basegraphics = basegraphics)
 
-  set_base_plot_hook()
+  if(basegraphics)
+    set_base_plot_hook()
 
   invisible(NULL)
 }
@@ -74,7 +85,8 @@ rmote_on <- function(server_dir,
 #' @export
 rmote_off <- function() {
   plot_done()
-  unset_base_plot_hook()
+  if(getOption("rmote_basegraphics", FALSE))
+    unset_base_plot_hook()
   options(rmote_on = FALSE)
 }
 

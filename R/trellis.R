@@ -79,6 +79,7 @@ print_graphics <- function(x) {
 
       write_html(html)
     } else if(inherits(x, "base_graphics")) {
+      message("when finished with plot commands, call plot_done()")
       options(rmote_baseplot = html)
     }
 

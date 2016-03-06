@@ -29,7 +29,8 @@ print.help_files_with_topic <- function(x, ...) {
         file.copy(file.path(system.file(package = "rmote"), "R.css"), server_dir)
 
       ii <- get_output_index()
-      writeLines(res, file.path(server_dir, get_output_file(ii)))
+      writeLines(c("<!-- DISABLE-SERVR-WEBSOCKET -->", res),
+        file.path(server_dir, get_output_file(ii)))
       write_index(ii)
       return()
     }
