@@ -19,7 +19,8 @@ set_base_plot_hook <- function() {
   setHook("before.plot.new", function() {
     # if a device was opened up automatically, turn it off
     # (automatic devices don't have a path)
-    if(is.null(attr(.Device, "filepath")))
+    fp <- attr(.Device, "filepath")
+    if(is.null(fp) || fp == "Rplots.pdf")
       dev.off()
 
     # in case previous plot has never finished
