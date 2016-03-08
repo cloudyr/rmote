@@ -5,7 +5,8 @@
 \title{Initialize a remote servr}
 \usage{
 start_rmote(server_dir = file.path(tempdir(), "rmote_server"), port = 4321,
-  daemon = TRUE, help = TRUE, graphics = TRUE, htmlwidgets = TRUE)
+  daemon = TRUE, help = TRUE, graphics = TRUE, basegraphics = TRUE,
+  htmlwidgets = TRUE, hostname = TRUE)
 }
 \arguments{
 \item{server_dir}{directory to launch servr from}
@@ -18,7 +19,11 @@ start_rmote(server_dir = file.path(tempdir(), "rmote_server"), port = 4321,
 
 \item{graphics}{(logical) send traditional lattice / ggplot2 plots to servr}
 
+\item{basegraphics}{(logical) send base graphics to servr}
+
 \item{htmlwidgets}{(logical) send htmlwidgets to servr}
+
+\item{hostname}{(logical) try to get hostname and use it in viewer page title}
 }
 \description{
 Initialize a remote servr

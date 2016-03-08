@@ -4,7 +4,8 @@
 \alias{rmote_on}
 \title{Set the rmote mode to be on}
 \usage{
-rmote_on(server_dir, help = TRUE, graphics = TRUE, htmlwidgets = TRUE)
+rmote_on(server_dir, help = TRUE, graphics = TRUE, basegraphics = TRUE,
+  htmlwidgets = TRUE, hostname = TRUE)
 }
 \arguments{
 \item{server_dir}{directory where rmote server is running}
@@ -13,7 +14,11 @@ rmote_on(server_dir, help = TRUE, graphics = TRUE, htmlwidgets = TRUE)
 
 \item{graphics}{(logical) send traditional lattice / ggplot2 plots to servr}
 
+\item{basegraphics}{(logical) send base graphics to servr}
+
 \item{htmlwidgets}{(logical) send htmlwidgets to servr}
+
+\item{hostname}{(logical) try to get hostname and use it in viewer page title}
 }
 \description{
 Set the rmote mode to be on

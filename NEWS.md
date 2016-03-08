@@ -1,6 +1,9 @@
 Version 0.3
 ----------------------------------------------------------------------
 
+- Add `hostname` option that will show hostname in page title (0.3.3)
+- Add preliminary tests (0.3.3)
+- Ensure raster graphics don't render if someone/thing has explicitly opened their own device (0.3.3)
 - Fix iframe refresh issue (thanks @yihui) (0.3.2)
 - Add base R graphics support (0.3.1)
 - Add `rmote_on()` and `rmote_off()`

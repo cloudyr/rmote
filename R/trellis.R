@@ -22,7 +22,7 @@ print_graphics <- function(x) {
 
   graphics_opt <- getOption("rmote_graphics", FALSE)
 
-  if(is_rmote_on() && graphics_opt) {
+  if(is_rmote_on() && graphics_opt && no_other_devices()) {
     message("serving graphics through rmote")
 
     output_dir <- file.path(get_server_dir(), "plots")

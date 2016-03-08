@@ -17,6 +17,11 @@ make_base_plot <- function() {
 set_base_plot_hook <- function() {
   options(prev_plot_hook = getHook("before.plot.new"))
   setHook("before.plot.new", function() {
+    # if a device was opened up automatically, turn it off
+    # (automatic devices don't have a path)
+    if(is.null(attr(.Device, "filepath")))
+      dev.off()
+
     # in case previous plot has never finished
     getFromNamespace("make_base_plot", "rmote")()
 
