@@ -32,6 +32,15 @@ print.help_files_with_topic <- function(x, ...) {
       writeLines(c("<!-- DISABLE-SERVR-WEBSOCKET -->", res),
         file.path(server_dir, get_output_file(ii)))
       write_index(ii)
+
+      fbase <- file.path(server_dir, "thumbs")
+      if(!file.exists(fbase))
+        dir.create(fbase)
+      nf <- file.path(fbase, gsub("html$", "png", get_output_file(ii)))
+      png(file = nf, width = 300, height = 150)
+      lattice:::print.trellis(text_plot(paste("help:", topic)))
+      dev.off()
+
       return()
     }
   } else {

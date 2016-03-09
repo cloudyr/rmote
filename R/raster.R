@@ -43,6 +43,7 @@ print_graphics <- function(x) {
     file <- file.path("plots", paste0(plot_base, ".", opts$type))
     ofile <- file.path(output_dir, paste0(plot_base, ".", opts$type))
 
+    cur_type <- opts$type
     if(opts$type == "png") {
       ww <- opts$width
       hh <- opts$height
@@ -77,10 +78,15 @@ print_graphics <- function(x) {
         getFromNamespace("print.ggplot", "ggplot2")(x)
       dev.off()
 
-      write_html(html)
+      res <- write_html(html)
+
+      # make thumbnail
+      make_raster_thumb(res, cur_type, opts, ofile)
+
     } else if(inherits(x, "base_graphics")) {
       message("when finished with plot commands, call plot_done()")
-      options(rmote_baseplot = html)
+      options(rmote_baseplot = list(html = html, ofile = ofile,
+        cur_type = cur_type, opts = opts))
     }
 
     return()
@@ -116,7 +122,19 @@ rmote_device <- function(type = c("png", "pdf"), filename = NULL, retina = TRUE,
   options(rmote_device = opts)
 }
 
-
+make_raster_thumb <- function(res, cur_type, opts, ofile) {
+  fbase <- file.path(get_server_dir(), "thumbs")
+  if(!file.exists(fbase))
+    dir.create(fbase)
+  nf <- file.path(fbase, gsub("html$", "png", basename(res)))
+  if(cur_type == "pdf") {
+    png(file = nf, width = 300, height = 150)
+    lattice:::print.trellis(text_plot("pdf file"))
+    dev.off()
+  } else {
+    suppressMessages(make_thumb(ofile, nf, width = opts$width, height = opts$height))
+  }
+}
 
 
 

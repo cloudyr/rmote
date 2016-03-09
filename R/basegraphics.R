@@ -3,14 +3,16 @@
 #' @export
 plot_done <- function() {
   make_base_plot()
-  options(rmote_baseplot = NULL)
+  invisible(NULL)
 }
 
 make_base_plot <- function() {
-  html <- getOption("rmote_baseplot")
-  if(!is.null(html)) {
+  rmb <- getOption("rmote_baseplot")
+  if(!is.null(rmb)) {
     dev.off()
-    write_html(html)
+    res <- write_html(rmb$html)
+    options(rmote_baseplot = NULL)
+    make_raster_thumb(res, rmb$cur_type, rmb$opts, rmb$ofile)
   }
 }
 

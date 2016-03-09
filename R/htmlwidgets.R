@@ -16,8 +16,28 @@ print.htmlwidget <- function(x, ...) {
       write_html(html)
     })
 
-    if(!inherits(res, "try-error"))
+    # make thumbnail of htmlwidget
+    fbase <- file.path(get_server_dir(), "thumbs")
+    nf <- file.path(fbase, gsub("html$", "png", basename(res)))
+    if(!inherits(res, "try-error")) {
+      width <- x$width
+      height <- x$height
+      x$sizingPolicy$padding <- 0
+      if(is.null(width)) width <- 600
+      if(is.null(height)) height <- 400
+
+      tf <- tempfile(fileext = ".png")
+      ws_res <- try(webshot::webshot(paste0("file://", res), file = tf,
+        selector = ".html-widget"), silent = TRUE)
+      if(!inherits(ws_res, "try-error")) {
+        suppressMessages(make_thumb(tf, nf, width = width, height = height))
+      } else {
+        png(file = nf, width = 300, height = 150)
+        lattice:::print.trellis(text_plot("htmlwidget"))
+        dev.off()
+      }
       return()
+    }
   } else {
     getFromNamespace("print.htmlwidget", "htmlwidgets")(x)
   }

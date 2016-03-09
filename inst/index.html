@@ -1,161 +1,147 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>rmote viewer</title>
+  <title>rmote: spacemanspiff.local</title>
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
-
   <style type="text/css">
-    body {
-      margin: 0px;
-    }
-    #header {
-      position: fixed;
-      top: 0px;
-      left: 0px;
-      height: 22px;
-      width: 100%;
-      margin-bottom: 4px;
-      background: #7EB0E3;
-      text-align: center;
-    }
-    #content {
-      position: fixed;
-      top: 26px;
-      left: 0px;
-      bottom: 0px;
-      width: 100%;
-    }
-    #content iframe {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 100%;
-      width: 100%;
-    }
-    .index {
-      display: inline-block;
-      margin: 0;
-      font-family: 'Open Sans', sans-serif;
-      font-size: 13px;
-      line-height: 12px;
-      padding: 5px 0px;
-    }
-    button {
-      display: inline-block;
-      margin: 0;
-      padding: 5px 0px;
-      width: 60px;
-      font-size: 13px;
-      font-family: 'Open Sans', sans-serif;
-      line-height: 12px;
-      vertical-align: bottom;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      -webkit-box-shadow: none;
-      -moz-box-shadow: none;
-      box-shadow: none;
-      -webkit-border-radius: 0;
-      -moz-border-radius: 0;
-      border-radius: 0;
-      color: #fff;
-      background-color: #6496c8;
-      border: none;
-    }
-    button:focus {
-      outline: none
-    }
-    button:hover {
-      background-color: #4B7DAF;
-      cursor: pointer;
-    }
-    button:first-child {
-      float: left;
-    }
-    button:last-child {
-      float: right;
-    }
+  html, body, #container { height: 100%; padding: 0; margin: 0;}
+  html, body { overflow: hidden; }
+  .unselect { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+  html { font-family: 'Open Sans', sans-serif; font-size: 13px; overflow-y: none; }
+  .full-height { height: 100%;}
+  #header { height: 22px; width: 100%; background: #7EB0E3; text-align: center; }
+  #main { display: flex; height: calc(100% - 22px); }
+  #content { width: 100%; padding-top: 4px; }
+  #sidebar { overflow-y: auto; height: 100%; overflow-x: hidden;}
+  #sidebar-toggle { width: 22px; background: #ddd; color: darkgray; cursor: pointer; }
+  #sidebar-toggle:hover { background: #ccc; }
+  .sb-show { width: 250px; transition: width 0.5s; }
+  .sb-hide { width: 0px; transition: width 0.5s; }
+  .head-elem { display: inline-block; line-height: 22px; }
+  .button { width: 60px; color: #fff; background-color: #6496c8; user-select: none; }
+  .button:hover { background-color: #4B7DAF; cursor: pointer; }
+  .button:first-child { float: left; }
+  .button:last-child { float: right; }
+  .vertical-text { transform: rotate(270deg); transform-origin: 42% 50% 0; }
+  .vertical-align { position: relative; top: 46%; }
+  .no-transition { transition: none !important; }
+  .history {width: 200px; padding: 5px; padding-left: 10px; cursor: pointer; overflow: hidden; }
+  .history:hover { background: #eee; }
+  .history.active { background: #98cafd; transition: all 0.2s ease-in; }
+  .history-elem { height: 75px; display: inline-block; vertical-align:top;}
+  .history-text { width: 40px; line-height: 75px; font-size: 15px;}
+  .history-imgdiv { max-width: 140px; }
+  .history-img { height: 75px; }
   </style>
-
   <script type="text/javascript">
-    var max_page = ___max_page___;
-    var cur_page = max_page;
-
-    function pad(n, width, z) {
-      z = z || '0';
-      n = n + '';
-      return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
-    }
-
-    function changePage(which) {
-      switch (which) {
-        case 'first':
-          cur_page = 1;
-          break;
-        case 'prev':
-          if(cur_page > 1)
-            cur_page = cur_page - 1;
-          break;
-        case 'next':
-          if(cur_page < max_page)
-            cur_page = cur_page + 1;
-          break;
-        case 'last':
-          cur_page = max_page;
-          break;
+  var max_page = ___max_page___;
+  var cur_page = max_page;
+  function pad(n, width, z) {
+    z = z || '0'; n = n + '';
+    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+  }
+  function changePage(which) {
+    var next_page = cur_page;
+    switch (which) {
+      case 'first': next_page = 1; break;
+      case 'prev': if(cur_page > 1) next_page = cur_page - 1; break;
+      case 'next': if(cur_page < max_page) next_page = cur_page + 1; break;
+      case 'last': next_page = max_page; break;
+      default: {
+        next_page = parseInt(which);
+        if(isNaN(next_page) || next_page < 1 || next_page > max_page) {
+          next_page = cur_page;
+        }
       }
-
+    }
+    if(next_page != cur_page) {
+      document.getElementById("history-" + cur_page).setAttribute("class", "history");
+      document.getElementById("history-" + next_page).setAttribute("class", "history active");
+      cur_page = next_page;
       var url = "output" + pad(cur_page, 4) + ".html";
       document.getElementById('iframe').src = url;
       document.getElementById("cur").textContent = cur_page;
     }
-
-    window.onload = function() {
-      var url = "output" + pad(cur_page, 4) + ".html";
-      document.getElementById("iframe").src = url;
-      document.getElementById("cur").textContent = cur_page;
-      document.getElementById("max").textContent = max_page;
-    };
-
-    document.onkeydown = function(e) {
-      e = e || window.event;
-      switch(e.which || e.keyCode) {
-        case 37: // left
-          changePage('prev');
-          break;
-        case 39: // right
-          changePage('next');
-          break;
-        default: return; // exit this handler for other keys
-      }
-      e.preventDefault(); // prevent the default action (scroll / move caret)
-    };
+  }
+  window.onload = function() {
+    var url = "output" + pad(cur_page, 4) + ".html";
+    document.getElementById("iframe").src = url;
+    document.getElementById("cur").textContent = cur_page;
+    document.getElementById("max").textContent = max_page;
+    var hash = window.location.hash.substr(1);
+    if(hash === 'history')
+      document.getElementById('sidebar').setAttribute('class', 'sb-show no-transition');
+    function createDiv(i) {
+      var div = document.createElement("div");
+      var histClass = "history";
+      if(i == cur_page) histClass = histClass + " active";
+      div.setAttribute("class", histClass);
+      div.setAttribute("onClick", "changePage(" + i + ");");
+      div.setAttribute("id", "history-" + i);
+      var tdiv = document.createElement("div");
+        tdiv.setAttribute("class", "history-elem history-text");
+        tdiv.appendChild(document.createTextNode(i));
+      var idiv = document.createElement("div");
+        idiv.setAttribute("class", "history-elem history-imgdiv");
+        var img = document.createElement("img");
+        img.src = "thumbs/output" + pad(i, 4) + ".png";
+        img.setAttribute("class", "history-img");
+        idiv.appendChild(img);
+      div.appendChild(tdiv);
+      div.appendChild(idiv);
+      return div;
+    }
+    var docFrag = document.createDocumentFragment();
+    for (var i = max_page; i > 0; i--)
+      docFrag.appendChild(createDiv(i));
+    document.getElementById('sidebar').appendChild(docFrag);
+  };
+  document.onkeydown = function(e) {
+    e = e || window.event;
+    switch(e.which || e.keyCode) {
+      case 37: changePage('prev'); break; // left arrow key
+      case 39: changePage('next'); break; // right arrow key
+      case 72: toggleSidebar();    break; // 'h' to toggle history
+      default: return;
+    }
+    e.preventDefault();
+  };
+  function toggleSidebar() {
+    var bar = document.getElementById('sidebar');
+    if (bar.getAttribute('class') === 'sb-hide') {
+      bar.setAttribute('class', 'sb-show');
+      window.location.hash = 'history';
+    } else {
+      bar.setAttribute('class', 'sb-hide');
+      window.location.hash = '';
+    }
+  }
   </script>
 </head>
 <body>
-  <div id="header">
-    <button onClick="changePage('first');">First</button>
-    <button onClick="changePage('prev');">Prev</button>
-    <button onClick="changePage('next');">Next</button>
-    <div class="index">
-      (<span id="cur"></span> of <span id="max"></span>)
+  <div id="container">
+    <div id="header" class="unselect">
+      <div class="button head-elem" onClick="changePage('first');">First</div>
+      <div class="button head-elem" onClick="changePage('prev');">Prev</div>
+      <div class="button head-elem" onClick="changePage('next');">Next</div>
+      <div class="head-elem">
+        (<span id="cur"></span> of <span id="max"></span>)
+      </div>
+      <div class="button head-elem" onClick="changePage('last');">Last</div>
     </div>
-    <button onClick="changePage('last');">Last</button>
-  </div>
-
-  <div id="content">
-    <iframe id="iframe"
-      width="100%"
-      height="100%"
-      frameBorder="0"
-      webkitallowfullscreen=""
-      mozallowfullscreen=""
-      allowfullscreen=""
-      sandbox="allow-forms allow-scripts allow-popups allow-same-origin allow-pointer-lock">
-    </iframe>
+    <div id="main">
+      <div id="content" class="full-height">
+        <iframe id="iframe"
+          width="100%" height="100%" frameBorder="0" webkitallowfullscreen=""
+          mozallowfullscreen="" allowfullscreen=""
+          sandbox="allow-forms allow-scripts allow-popups allow-same-origin allow-pointer-lock">
+        </iframe>
+      </div>
+      <div id="sidebar-toggle" class="full-height" onClick="toggleSidebar();">
+        <p class="vertical-text vertical-align">history</p>
+      </div>
+      <div id="sidebar" class="sb-hide"></div>
+    </div>
   </div>
 </body>
 </html>
-
