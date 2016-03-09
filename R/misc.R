@@ -112,4 +112,9 @@ make_thumb <- function(in_file, out_file, width, height) {
     lim <- par()
     graphics::rasterImage(img, lim$usr[1], lim$usr[3], lim$usr[2], lim$usr[4])
   dev.off()
+
+dir.exists <- function(x) {
+  if(file.exists(x) & file.info(x)$isdir)
+    return(TRUE)
+  return(FALSE)
 }
