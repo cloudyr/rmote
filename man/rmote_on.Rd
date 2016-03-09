@@ -5,7 +5,7 @@
 \title{Set the rmote mode to be on}
 \usage{
 rmote_on(server_dir, help = TRUE, graphics = TRUE, basegraphics = TRUE,
-  htmlwidgets = TRUE, hostname = TRUE)
+  htmlwidgets = TRUE, hostname = TRUE, history = TRUE)
 }
 \arguments{
 \item{server_dir}{directory where rmote server is running}
@@ -19,6 +19,8 @@ rmote_on(server_dir, help = TRUE, graphics = TRUE, basegraphics = TRUE,
 \item{htmlwidgets}{(logical) send htmlwidgets to servr}
 
 \item{hostname}{(logical) try to get hostname and use it in viewer page title}
+
+\item{history}{(logical) should history thumbnails be created and shown in the viewer?}
 }
 \description{
 Set the rmote mode to be on

@@ -13,6 +13,7 @@ NULL
 #' @param basegraphics (logical) send base graphics to servr
 #' @param htmlwidgets (logical) send htmlwidgets to servr
 #' @param hostname (logical) try to get hostname and use it in viewer page title
+#' @param history (logical) should history thumbnails be created and shown in the viewer?
 #'
 #' @export
 #' @importFrom servr httd
@@ -21,7 +22,7 @@ start_rmote <- function(
   port = 4321, daemon = TRUE,
   help = TRUE, graphics = TRUE,
   basegraphics = TRUE, htmlwidgets = TRUE,
-  hostname = TRUE) {
+  hostname = TRUE, history = TRUE) {
 
   if(!file.exists(server_dir))
     dir.create(server_dir, recursive = TRUE, showWarnings = FALSE)
@@ -33,6 +34,7 @@ start_rmote <- function(
   options(rmote_htmlwidgets = htmlwidgets)
   options(rmote_basegraphics = basegraphics)
   options(rmote_hostname = hostname)
+  options(rmote_history = history)
 
   set_index_template()
 
@@ -61,12 +63,13 @@ stop_rmote <- function() {
 #' @param basegraphics (logical) send base graphics to servr
 #' @param htmlwidgets (logical) send htmlwidgets to servr
 #' @param hostname (logical) try to get hostname and use it in viewer page title
+#' @param history (logical) should history thumbnails be created and shown in the viewer?
 #' @note This is useful when running multiple R sessions on a server, where all will serve the same rmote process.  It is not necessary to call this in the same session on which \code{\link{start_rmote}} has been called, but on any other R sessions.
 #' @export
 rmote_on <- function(server_dir,
   help = TRUE, graphics = TRUE,
   basegraphics = TRUE, htmlwidgets = TRUE,
-  hostname = TRUE
+  hostname = TRUE, history = TRUE
 ) {
 
   if(!file.exists(server_dir))
@@ -80,6 +83,7 @@ rmote_on <- function(server_dir,
   options(rmote_htmlwidgets = htmlwidgets)
   options(rmote_basegraphics = basegraphics)
   options(rmote_hostname = hostname)
+  options(rmote_history = history)
 
   if(basegraphics)
     set_base_plot_hook()

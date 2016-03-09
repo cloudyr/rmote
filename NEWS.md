@@ -1,6 +1,9 @@
 Version 0.3
 ----------------------------------------------------------------------
 
+- Add history sidebar to viewer and option to use it or not (0.3.4)
+- Add history thumbnail functions for all output modes (0.3.4)
+- Clean up html and css (0.3.4)
 - Add `hostname` option that will show hostname in page title (0.3.3)
 - Add preliminary tests (0.3.3)
 - Ensure raster graphics don't render if someone/thing has explicitly opened their own device (0.3.3)

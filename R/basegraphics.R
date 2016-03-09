@@ -12,7 +12,8 @@ make_base_plot <- function() {
     dev.off()
     res <- write_html(rmb$html)
     options(rmote_baseplot = NULL)
-    make_raster_thumb(res, rmb$cur_type, rmb$opts, rmb$ofile)
+    if(is_history_on())
+      make_raster_thumb(res, rmb$cur_type, rmb$opts, rmb$ofile)
   }
 }
 

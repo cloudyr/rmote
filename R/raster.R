@@ -81,7 +81,8 @@ print_graphics <- function(x) {
       res <- write_html(html)
 
       # make thumbnail
-      make_raster_thumb(res, cur_type, opts, ofile)
+      if(is_history_on())
+        make_raster_thumb(res, cur_type, opts, ofile)
 
     } else if(inherits(x, "base_graphics")) {
       message("when finished with plot commands, call plot_done()")
@@ -123,13 +124,14 @@ rmote_device <- function(type = c("png", "pdf"), filename = NULL, retina = TRUE,
 }
 
 make_raster_thumb <- function(res, cur_type, opts, ofile) {
+  message("making thumbnail")
   fbase <- file.path(get_server_dir(), "thumbs")
   if(!file.exists(fbase))
     dir.create(fbase)
   nf <- file.path(fbase, gsub("html$", "png", basename(res)))
   if(cur_type == "pdf") {
-    png(file = nf, width = 300, height = 150)
-    lattice:::print.trellis(text_plot("pdf file"))
+    png(filename = nf, width = 300, height = 150)
+    getFromNamespace("print.trellis", "lattice")(text_plot("pdf file"))
     dev.off()
   } else {
     suppressMessages(make_thumb(ofile, nf, width = opts$width, height = opts$height))

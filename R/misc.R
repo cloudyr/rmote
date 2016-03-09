@@ -43,6 +43,7 @@ write_index <- function(ii) {
   if(is.null(getOption("rmote_index")))
     set_index_template()
   res <- gsub("___max_page___", ii, getOption("rmote_index"))
+  res <- gsub("___history___", ifelse(is_history_on(), "true", "false"), res)
   # write out file index
   cat(ii, file = file.path(get_server_dir(), ".idx"))
   cat(res, file = file.path(get_server_dir(), "index.html"))
@@ -50,6 +51,10 @@ write_index <- function(ii) {
 
 is_rmote_on <- function() {
   getOption("rmote_on", FALSE) || length(servr::daemon_list()) > 0
+}
+
+is_history_on <- function() {
+  getOption("rmote_history", TRUE)
 }
 
 no_other_devices <- function() {
@@ -88,6 +93,8 @@ text_plot <- function(text) {
     panel.text(0.5, 0.5, text, cex = 2.5))
 }
 
+#' @importFrom png readPNG
+#' @importFrom graphics rasterImage
 make_thumb <- function(in_file, out_file, width, height) {
   fbase <- dirname(out_file)
   if(!dir.exists(fbase))
@@ -103,6 +110,6 @@ make_thumb <- function(in_file, out_file, width, height) {
     par(mar = c(0,0,0,0), xaxs = "i", yaxs = "i", ann = FALSE)
     plot(1:2, type = "n", xaxt = "n", yaxt = "n", xlab = "", ylab = "")
     lim <- par()
-    rasterImage(img, lim$usr[1], lim$usr[3], lim$usr[2], lim$usr[4])
+    graphics::rasterImage(img, lim$usr[1], lim$usr[3], lim$usr[2], lim$usr[4])
   dev.off()
 }

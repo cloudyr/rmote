@@ -6,7 +6,7 @@
 \usage{
 start_rmote(server_dir = file.path(tempdir(), "rmote_server"), port = 4321,
   daemon = TRUE, help = TRUE, graphics = TRUE, basegraphics = TRUE,
-  htmlwidgets = TRUE, hostname = TRUE)
+  htmlwidgets = TRUE, hostname = TRUE, history = TRUE)
 }
 \arguments{
 \item{server_dir}{directory to launch servr from}
@@ -24,6 +24,8 @@ start_rmote(server_dir = file.path(tempdir(), "rmote_server"), port = 4321,
 \item{htmlwidgets}{(logical) send htmlwidgets to servr}
 
 \item{hostname}{(logical) try to get hostname and use it in viewer page title}
+
+\item{history}{(logical) should history thumbnails be created and shown in the viewer?}
 }
 \description{
 Initialize a remote servr

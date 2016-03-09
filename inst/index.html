@@ -32,8 +32,10 @@
   .history-text { width: 40px; line-height: 75px; font-size: 15px;}
   .history-imgdiv { max-width: 140px; }
   .history-img { height: 75px; }
+  .hide { display: none; }
   </style>
   <script type="text/javascript">
+  var show_history = ___history___;
   var max_page = ___max_page___;
   var cur_page = max_page;
   function pad(n, width, z) {
@@ -55,8 +57,10 @@
       }
     }
     if(next_page != cur_page) {
-      document.getElementById("history-" + cur_page).setAttribute("class", "history");
-      document.getElementById("history-" + next_page).setAttribute("class", "history active");
+      if(show_history) {
+        document.getElementById("history-" + cur_page).setAttribute("class", "history");
+        document.getElementById("history-" + next_page).setAttribute("class", "history active");
+      }
       cur_page = next_page;
       var url = "output" + pad(cur_page, 4) + ".html";
       document.getElementById('iframe').src = url;
@@ -68,52 +72,65 @@
     document.getElementById("iframe").src = url;
     document.getElementById("cur").textContent = cur_page;
     document.getElementById("max").textContent = max_page;
-    var hash = window.location.hash.substr(1);
-    if(hash === 'history')
-      document.getElementById('sidebar').setAttribute('class', 'sb-show no-transition');
-    function createDiv(i) {
-      var div = document.createElement("div");
-      var histClass = "history";
-      if(i == cur_page) histClass = histClass + " active";
-      div.setAttribute("class", histClass);
-      div.setAttribute("onClick", "changePage(" + i + ");");
-      div.setAttribute("id", "history-" + i);
-      var tdiv = document.createElement("div");
-        tdiv.setAttribute("class", "history-elem history-text");
-        tdiv.appendChild(document.createTextNode(i));
-      var idiv = document.createElement("div");
-        idiv.setAttribute("class", "history-elem history-imgdiv");
-        var img = document.createElement("img");
-        img.src = "thumbs/output" + pad(i, 4) + ".png";
-        img.setAttribute("class", "history-img");
-        idiv.appendChild(img);
-      div.appendChild(tdiv);
-      div.appendChild(idiv);
-      return div;
+    if(show_history) {
+      var hash = window.location.hash.substr(1);
+      if(hash === 'history' || hash === '') {
+        window.location.hash = 'history';
+        document.getElementById('sidebar').setAttribute('class', 'sb-show no-transition');
+      } else {
+        window.location.hash = 'nohistory';
+      }
+      function createDiv(i) {
+        var div = document.createElement("div");
+        var histClass = "history";
+        if(i == cur_page) histClass = histClass + " active";
+        div.setAttribute("class", histClass);
+        div.setAttribute("onClick", "changePage(" + i + ");");
+        div.setAttribute("id", "history-" + i);
+        var tdiv = document.createElement("div");
+          tdiv.setAttribute("class", "history-elem history-text");
+          tdiv.appendChild(document.createTextNode(i));
+        var idiv = document.createElement("div");
+          idiv.setAttribute("class", "history-elem history-imgdiv");
+          var img = document.createElement("img");
+          img.src = "thumbs/output" + pad(i, 4) + ".png";
+          img.setAttribute("class", "history-img");
+          idiv.appendChild(img);
+        div.appendChild(tdiv);
+        div.appendChild(idiv);
+        return div;
+      }
+      var docFrag = document.createDocumentFragment();
+      for (var i = max_page; i > 0; i--)
+        docFrag.appendChild(createDiv(i));
+      document.getElementById('sidebar').appendChild(docFrag);
+    } else {
+      document.getElementById('sidebar').setAttribute('class', 'hide');
+      document.getElementById('sidebar-toggle').setAttribute('class', 'hide');
     }
-    var docFrag = document.createDocumentFragment();
-    for (var i = max_page; i > 0; i--)
-      docFrag.appendChild(createDiv(i));
-    document.getElementById('sidebar').appendChild(docFrag);
   };
   document.onkeydown = function(e) {
     e = e || window.event;
     switch(e.which || e.keyCode) {
       case 37: changePage('prev'); break; // left arrow key
+      case 38: changePage('next'); break; // up arrow key
       case 39: changePage('next'); break; // right arrow key
+      case 40: changePage('prev'); break; // down arrow key
       case 72: toggleSidebar();    break; // 'h' to toggle history
       default: return;
     }
     e.preventDefault();
   };
   function toggleSidebar() {
-    var bar = document.getElementById('sidebar');
-    if (bar.getAttribute('class') === 'sb-hide') {
-      bar.setAttribute('class', 'sb-show');
-      window.location.hash = 'history';
-    } else {
-      bar.setAttribute('class', 'sb-hide');
-      window.location.hash = '';
+    if(show_history) {
+      var bar = document.getElementById('sidebar');
+      if (bar.getAttribute('class') === 'sb-hide') {
+        bar.setAttribute('class', 'sb-show');
+        window.location.hash = 'history';
+      } else {
+        bar.setAttribute('class', 'sb-hide');
+        window.location.hash = 'nohistory';
+      }
     }
   }
   </script>

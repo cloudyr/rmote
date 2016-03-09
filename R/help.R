@@ -33,13 +33,16 @@ print.help_files_with_topic <- function(x, ...) {
         file.path(server_dir, get_output_file(ii)))
       write_index(ii)
 
-      fbase <- file.path(server_dir, "thumbs")
-      if(!file.exists(fbase))
-        dir.create(fbase)
-      nf <- file.path(fbase, gsub("html$", "png", get_output_file(ii)))
-      png(file = nf, width = 300, height = 150)
-      lattice:::print.trellis(text_plot(paste("help:", topic)))
-      dev.off()
+      if(is_history_on()) {
+        message("making thumbnail")
+        fbase <- file.path(server_dir, "thumbs")
+        if(!file.exists(fbase))
+          dir.create(fbase)
+        nf <- file.path(fbase, gsub("html$", "png", get_output_file(ii)))
+        png(filename = nf, width = 300, height = 150)
+        getFromNamespace("print.trellis", "lattice")(text_plot(paste("help:", topic)))
+        dev.off()
+      }
 
       return()
     }
