@@ -34,7 +34,10 @@ print.htmlwidget <- function(x, ...) {
         if(!inherits(ws_res, "try-error")) {
           suppressMessages(make_thumb(tf, nf, width = width, height = height))
         } else {
-          png(filename = nf, width = 300, height = 150)
+          opts <- list(filename = nf, width = 300, height = 150)
+          if(capabilities("cairo"))
+            opts$type <- "cairo-png"
+          do.call(png, opts)
           getFromNamespace("print.trellis", "lattice")(text_plot("htmlwidget"))
           dev.off()
         }

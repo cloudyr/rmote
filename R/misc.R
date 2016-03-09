@@ -106,12 +106,16 @@ make_thumb <- function(in_file, out_file, width, height) {
   width <- ratio * width
 
   img <- png::readPNG(in_file)
-  png(filename = out_file, height = height, width = width)
+  opts <- list(filename = out_file, width = width, height = height)
+  if(capabilities("cairo"))
+    opts$type <- "cairo-png"
+  do.call(png, opts)
     par(mar = c(0,0,0,0), xaxs = "i", yaxs = "i", ann = FALSE)
     plot(1:2, type = "n", xaxt = "n", yaxt = "n", xlab = "", ylab = "")
     lim <- par()
     graphics::rasterImage(img, lim$usr[1], lim$usr[3], lim$usr[2], lim$usr[4])
   dev.off()
+}
 
 dir.exists <- function(x) {
   if(file.exists(x) & file.info(x)$isdir)

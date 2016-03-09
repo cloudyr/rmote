@@ -130,7 +130,10 @@ make_raster_thumb <- function(res, cur_type, opts, ofile) {
     dir.create(fbase)
   nf <- file.path(fbase, gsub("html$", "png", basename(res)))
   if(cur_type == "pdf") {
-    png(filename = nf, width = 300, height = 150)
+    opts <- list(filename = nf, width = 300, height = 150)
+    if(capabilities("cairo"))
+      opts$type <- "cairo-png"
+    do.call(png, opts)
     getFromNamespace("print.trellis", "lattice")(text_plot("pdf file"))
     dev.off()
   } else {

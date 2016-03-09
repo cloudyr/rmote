@@ -39,7 +39,10 @@ print.help_files_with_topic <- function(x, ...) {
         if(!file.exists(fbase))
           dir.create(fbase)
         nf <- file.path(fbase, gsub("html$", "png", get_output_file(ii)))
-        png(filename = nf, width = 300, height = 150)
+        opts <- list(filename = nf, width = 300, height = 150)
+        if(capabilities("cairo"))
+          opts$type <- "cairo-png"
+        do.call(png, opts)
         getFromNamespace("print.trellis", "lattice")(text_plot(paste("help:", topic)))
         dev.off()
       }
