@@ -45,3 +45,9 @@ write_index <- function(ii) {
   cat(ii, file = file.path(get_server_dir(), ".idx"))
   cat(res, file = file.path(get_server_dir(), "index.html"))
 }
+
+dir.exists <- function(x) {
+  if(file.exists(x) & file.info(x)$isdir)
+    return(TRUE)
+  return(FALSE)
+}
