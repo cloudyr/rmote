@@ -79,6 +79,8 @@ This process is slightly more tedious than `ssh -X` for initial setup, but much 
 
 ### Other useful utilities
 
+Another interesting package to check out that allows you to control R on a remote machine from your local R session is - [remoter](https://cran.r-project.org/web/packages/remoter/vignettes/remoter.html).
+
 If you must work on a remote terminal, here are some additional utilities that help make things nice:
 
 - [colorout](https://github.com/jalvesaq/colorout)
