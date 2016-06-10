@@ -87,3 +87,29 @@ If you must work on a remote terminal, here are some additional utilities that h
 - [Sublime](https://www.sublimetext.com) + [SFTP](http://wbond.net/sublime_packages/sftp)
 - [Vim](http://www.vim.org) + [Vim-R-plugin](https://github.com/vim-scripts/Vim-R-plugin)
 
+
+## Installation ##
+
+[![CRAN](http://www.r-pkg.org/badges/version/rmote)](http://cran.r-project.org/package=rmote)
+[![Build Status](https://travis-ci.org/cloudyr/rmote.png?branch=master)](https://travis-ci.org/cloudyr/rmote)
+[![codecov.io](http://codecov.io/github/cloudyr/rmote/coverage.svg?branch=master)](http://codecov.io/github/cloudyr/rmote?branch=master)
+
+This package is not yet on CRAN. To install the latest development version you can install from the cloudyr drat repository:
+
+```R
+# latest stable version
+install.packages("rmote", repos = c(getOption("repos"), "http://cloudyr.github.io/drat"))
+```
+
+Or, to pull a potentially unstable version directly from GitHub:
+
+```R
+if(!require("ghit")){
+    install.packages("ghit")
+}
+ghit::install_github("cloudyr/rmote")
+```
+
+
+---
+[![cloudyr project logo](http://i.imgur.com/JHS98Y7.png)](https://github.com/cloudyr)
