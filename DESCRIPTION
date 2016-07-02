@@ -5,6 +5,8 @@ Authors@R: person("Ryan", "Hafen", email = "rhafen@gmail.com", role = c("aut", "
 Description: Serve graphics (lattice/ggplot, htmlwidgets, help) over http from
     an interactive R session running through ssh on a remote server.
 License: MIT + file LICENSE
+URL: https://github.com/cloudyr/rmote
+BugReports: https://github.com/cloudyr/rmote/issues
 LazyData: true
 Depends:
     R (>= 3.1)

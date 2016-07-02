@@ -8,3 +8,4 @@ man-roxygen
 CONTRIBUTING\.md
 ^_ignore$
 \.sublime\-
+^drat.sh$
