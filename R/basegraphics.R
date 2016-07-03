@@ -9,7 +9,8 @@ plot_done <- function() {
 make_base_plot <- function() {
   rmb <- getOption("rmote_baseplot")
   if(!is.null(rmb)) {
-    dev.off()
+    if(dev.cur() > 1)
+      dev.off()
     res <- write_html(rmb$html)
     options(rmote_baseplot = NULL)
     if(is_history_on())

@@ -27,6 +27,8 @@ start_rmote <- function(
   if(!file.exists(server_dir))
     dir.create(server_dir, recursive = TRUE, showWarnings = FALSE)
 
+  options(rmote_on = TRUE)
+
   options(rmote_server_dir = server_dir)
   options(rmote_server_port = port)
   options(rmote_help = help)
