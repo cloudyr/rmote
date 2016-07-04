@@ -37,6 +37,6 @@ set_base_plot_hook <- function() {
 }
 
 unset_base_plot_hook <- function() {
-  setHook("before.plot.new", getOption("pre_plot_hook"), "replace")
+  setHook("before.plot.new", getOption("prev_plot_hook"), "replace")
 }
 
